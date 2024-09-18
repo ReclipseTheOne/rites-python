@@ -2,7 +2,7 @@ import colored
 import sys
 import os
 
-from _version import __version__
+from ._version import __version__
 
 def version():
     """Version number for rites.

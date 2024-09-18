@@ -1,7 +1,8 @@
 from colored import Fore, Style
 from pathlib import Path
 
-class rites:
+
+class Rites:
     def __init__(self):
         self.__c_red = Fore.red
         self.__c_blue = Fore.blue
@@ -14,25 +15,29 @@ class rites:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_yellow}warning{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(
+            f"{self.__c_white}[{self.__c_rst}{self.__c_yellow}warning{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
 
     def print_error(self, *txt):
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_red}error{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(
+            f"{self.__c_white}[{self.__c_rst}{self.__c_red}error{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
 
     def print_debug(self, *txt):
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_blue}debug{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(
+            f"{self.__c_white}[{self.__c_rst}{self.__c_blue}debug{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
 
     def print_success(self, *txt):
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_green}success{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(
+            f"{self.__c_white}[{self.__c_rst}{self.__c_green}success{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
 
     def get_file_count(self, directory):
 
