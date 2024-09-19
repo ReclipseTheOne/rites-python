@@ -55,3 +55,11 @@ class Rites:
                 paths.append(str(file.absolute().resolve()))
 
         return paths
+
+    def enforce(self, obj, cls, debug=False):
+        if not isinstance(obj, cls):
+            if debug:
+                self.print_error(f"Blocked: {obj}")
+            raise TypeError(f"Expected type: <{cls.__name__}> but got <{type(obj).__name__}>")
+        if debug:
+            self.print_success(f"Passed: {obj}")
