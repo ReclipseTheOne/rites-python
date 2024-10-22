@@ -16,4 +16,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=[
+        'colored>=2.2.4'
+    ]
 )
