@@ -1,7 +1,16 @@
 from datetime import datetime
 from colored import Fore, Style
 
-class logger:
+
+class Logger:
+    """ Logger Class
+
+        Automatic log file creation and formatting
+
+        Args:
+            log_path (str): The path to the log file directory
+            log_format (str): The format of the log file name - default (log-%Y-%m-%d-%Hh-%Mm-%Ss)
+    """
     def __init__(self, log_path, log_format="log-%Y-%m-%d-%Hh-%Mm-%Ss"):
         self.log_path = log_path
         self.log_format = log_format
@@ -25,6 +34,11 @@ class logger:
             open(f"{self.log_path}/{self._getLogDateTime()}", "w").write(txt)
 
     def warning(self, *txt):
+        """ Logs a warning message
+
+            Args:
+                txt (str): The message to log
+        """
         string = ""
         for substr in txt:
             string += str(substr) + " "
@@ -32,6 +46,11 @@ class logger:
         self._writeToLogFile(f"[warning] {string}\n")
 
     def error(self, *txt):
+        """ Logs an error message
+
+            Args:
+                txt (str): The message to log
+        """
         string = ""
         for substr in txt:
             string += str(substr) + " "
@@ -39,6 +58,11 @@ class logger:
         self._writeToLogFile(f"[error] {string}\n")
 
     def debug(self, *txt):
+        """ Logs a debug message
+
+            Args:
+                txt (str): The message to log
+        """
         string = ""
         for substr in txt:
             string += str(substr) + " "
@@ -46,6 +70,11 @@ class logger:
         self._writeToLogFile(f"[debug] {string}\n")
 
     def success(self, *txt):
+        """ Logs a success message
+
+            Args:
+                txt (str): The message to log
+        """
         string = ""
         for substr in txt:
             string += str(substr) + " "
