@@ -131,10 +131,10 @@ class Math:
         """A class to represent Square Roots of Integers
         Attributes:
             number (int): The number to find the square root of
-            composites (dict): Array of the composite primes of the number
+            composites (dict): Dictionary of the composite primes of the number
 
         Methods:
-            __init__(self, number=0): Constructor for the class
+            __init__(self, number: int = 0): Constructor for the class
         """
 
         def __init__(self, number: int = 0):
