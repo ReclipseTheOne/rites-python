@@ -3,3 +3,4 @@ dist
 build
 test
 rites/__pycache__
+rites.egg-info
