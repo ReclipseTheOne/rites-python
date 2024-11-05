@@ -2,7 +2,7 @@ import math
 
 
 class Math:
-    """Usefull math operations that I couldn't find in the stdlib operations
+    """Useful math operations that I couldn't find in the stdlib operations
     """
     @staticmethod
     def split_into_primes(number):
