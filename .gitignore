@@ -1,3 +1,5 @@
 .idea
 dist
 build
+test
+rites/__pycache__
