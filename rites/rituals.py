@@ -207,7 +207,7 @@ class Math:
             self.width = len(self.matrix[0])
             self.height = len(self.matrix)
 
-        def __sum__(self, other: 'Math.Matrix') -> 'Math.Matrix':
+        def __add__(self, other: 'Math.Matrix') -> 'Math.Matrix':
             if self.width != other.width or self.height != other.height:
                 raise ValueError("Matrixes have different dimensions")
 
@@ -320,6 +320,15 @@ class Math:
             for row in __temp:
                 result += " ".join(row) + "\n"
 
+            return result
+
+        def __pow__(self, power: int) -> 'Math.Matrix':
+            if self.width != self.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = Math.Matrix.unit_matrix(self.width)
+            for i in range(power):
+                result *= self
             return result
 
         @staticmethod
