@@ -1,6 +1,6 @@
 .idea
 dist
 build
-test
+rites/test.py
 rites/__pycache__
 rites.egg-info
