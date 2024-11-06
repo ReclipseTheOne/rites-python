@@ -250,6 +250,10 @@ class Math:
                         result[i][j] += self.matrix[i][k] * other.matrix[k][j]
             return Math.Matrix(result)
 
+        def __rmul__(self, other: int) -> 'Math.Matrix':
+            # int * matrix fix
+            return self.__mul__(other)
+        
         def __str__(self):
             # Spaghetti code goes hard <3
 
