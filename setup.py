@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="rites",
-    version="0.2.1",
+    version="0.2.2",
     description="Reclipse's Initial Try at Enhanced Simplicity or R.I.T.E.S. A simple and lightweight QoL module.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
