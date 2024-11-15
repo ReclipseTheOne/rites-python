@@ -46,9 +46,11 @@ class Math:
             multiply(self, other: CN): Multiplies the complex number with another complex number
 
         Static Methods:
-            add_s(*args: CN) -> CN: Adds multiple complex numbers
-            subtract_s(*args: CN) -> CN: Subtracts multiple complex numbers
-            multiply_s(*args: CN) -> CN: Multiplies multiple complex numbers
+            add_of(*args: CN) -> CN: Adds multiple complex numbers
+            subtract_of(*args: CN) -> CN: Subtracts multiple complex numbers
+            multiply_of(*args: CN) -> CN: Multiplies multiple complex numbers
+            diagonal_of(matrix: list) -> list: Returns the diagonal of a matrix
+            secondary_diagonal_of(matrix: list) -> list: Returns the secondary diagonal of a matrix
 
             *CN = rites.rituals.Math.ComplexNumber
         """
@@ -103,21 +105,21 @@ class Math:
             self.imaginary = self.real * other.imaginary + self.imaginary * other.real
 
         @staticmethod
-        def add_s(*args: 'Math.ComplexNumber') -> 'Math.ComplexNumber':
+        def add_of(*args: 'Math.ComplexNumber') -> 'Math.ComplexNumber':
             result = Math.ComplexNumber()
             for arg in args:
                 result += arg
             return result
 
         @staticmethod
-        def subtract_s(*args: 'Math.ComplexNumber') -> 'Math.ComplexNumber':
+        def subtract_of(*args: 'Math.ComplexNumber') -> 'Math.ComplexNumber':
             result = Math.ComplexNumber()
             for arg in args:
                 result -= arg
             return result
 
         @staticmethod
-        def multiply_s(*args: 'Math.ComplexNumber') -> 'Math.ComplexNumber':
+        def multiply_of(*args: 'Math.ComplexNumber') -> 'Math.ComplexNumber':
             result = Math.ComplexNumber(1, 0)
             for arg in args:
                 result *= arg
@@ -334,6 +336,69 @@ class Math:
             for i in range(power):
                 result *= self
             return result
+        
+        def transpose(self) -> 'Math.Matrix':
+            result = []
+            for i in range(self.width):
+                result.append([])
+                for j in range(self.height):
+                    result[i].append(self.matrix[j][i])
+            return Math.Matrix(result)
+        
+        def diagonal(self) -> list:
+            if self.width != self.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = []
+            for i in range(self.width):
+                result.append(self.matrix[i][i])
+            return result
+        
+        def secondary_diagonal(self) -> list:
+            if self.width != self.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = []
+            for i in range(self.width):
+                result.append(self.matrix[i][self.width - i - 1])
+            return result
+        
+        def inferior_triangular_matrix(self, offset=0):
+            if self.width != self.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = []
+
+            # Fill the matrix with 0s
+            for i in range(self.width):
+                line = []
+                for j in range(self.height):
+                    line.append(0)
+                result.append(line)
+            
+            for i in range(offset, self.height):
+                for j in range(i + 1 - offset):
+                    result[i][j] = self.matrix[i][j]
+            return Math.Matrix(result)
+        
+        def superior_triangular_matrix(self, offset=0):
+            if self.width != self.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = []
+
+            # Fill the matrix with 0s
+            for i in range(self.width):
+                line = []
+                for j in range(self.height):
+                    line.append(0)
+                result.append(line)
+            
+            for i in range(self.height):
+                for j in range(i + offset, self.width):
+                    result[i][j] = self.matrix[i][j]
+            return Math.Matrix(result)
+                    
 
         @staticmethod
         def unit_matrix(size: int) -> 'Math.Matrix':
@@ -344,33 +409,33 @@ class Math:
             return Math.Matrix(matrix)
 
         @staticmethod
-        def diagonal(matrix: Union[list, 'Math.Matrix']) -> int:
+        def diagonal_of(matrix: Union[list, 'Math.Matrix']) -> list:
             if not isinstance(matrix, Math.Matrix):
                 matrix = Math.Matrix(matrix)
 
             if matrix.width != matrix.height:
                 raise ValueError("Matrix is not a square matrix")
 
-            result = 0
+            result = []
             for i in range(matrix.width):
-                result += matrix.matrix[i][i]
+                result.append(matrix.matrix[i][i])
             return result
 
         @staticmethod
-        def secondary_diagonal(matrix: Union[list, 'Math.Matrix']) -> int:
+        def secondary_diagonal_of(matrix: Union[list, 'Math.Matrix']) -> list:
             if not isinstance(matrix, Math.Matrix):
                 matrix = Math.Matrix(matrix)
 
             if matrix.width != matrix.height:
                 raise ValueError("Matrix is not a square matrix")
 
-            result = 0
+            result = []
             for i in range(matrix.width):
-                result += matrix.matrix[i][matrix.width - i - 1]
+                result.append(matrix.matrix[i][matrix.width - i - 1])
             return result
 
         @staticmethod
-        def transpose(matrix: Union[list, 'Math.Matrix']) -> 'Math.Matrix':
+        def transpose_of(matrix: Union[list, 'Math.Matrix']) -> 'Math.Matrix':
             if not isinstance(matrix, Math.Matrix):
                 matrix = Math.Matrix(matrix)
 
@@ -380,3 +445,56 @@ class Math:
                 for j in range(matrix.height):
                     result[i].append(matrix.matrix[j][i])
             return Math.Matrix(result)
+        
+        @staticmethod
+        def inferior_triangular_matrix_of(matrix: Union[list, 'Math.Matrix'], offset=0) -> 'Math.Matrix':
+            if not isinstance(matrix, Math.Matrix):
+                matrix = Math.Matrix(matrix)
+
+            if matrix.width != matrix.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = []
+
+            # Fill the matrix with 0s
+            for i in range(matrix.width):
+                line = []
+                for j in range(matrix.height):
+                    line.append(0)
+                result.append(line)
+            
+            for i in range(offset, matrix.height):
+                for j in range(i + 1 - offset):
+                    result[i][j] = matrix.matrix[i][j]
+            return Math.Matrix(result)
+        
+        @staticmethod
+        def superior_triangular_matrix_of(matrix: Union[list, 'Math.Matrix'], offset=0) -> 'Math.Matrix':
+            if not isinstance(matrix, Math.Matrix):
+                matrix = Math.Matrix(matrix)
+
+            if matrix.width != matrix.height:
+                raise ValueError("Matrix is not a square matrix")
+
+            result = []
+
+            # Fill the matrix with 0s
+            for i in range(matrix.width):
+                line = []
+                for j in range(matrix.height):
+                    line.append(0)
+                result.append(line)
+            
+            for i in range(matrix.height):
+                for j in range(i + offset, matrix.width):
+                    result[i][j] = matrix.matrix[i][j]
+            return Math.Matrix(result)
+
+        @staticmethod
+        def from_terminal(height, width) -> 'Math.Matrix':
+            matrix = []
+            for i in range(height):
+                matrix.append([])
+                for j in range(width):
+                    matrix[i].append(int(input(f"Enter the value for [{i}][{j}]: ")))
+            return Math.Matrix(matrix)
