@@ -78,6 +78,14 @@ class Math:
                 return Math.ComplexNumber(self.real * other.real - self.imaginary * other.imaginary, self.real * other.imaginary + self.imaginary * other.real)
             return Math.ComplexNumber(self.real * other.real - self.imaginary * other.imaginary, self.real * other.imaginary + self.imaginary * other.real, self.complex_letter)
 
+        def __pow__(self, power):
+            if power == 0:
+                return Math.ComplexNumber(1, 0)
+            result = Math.ComplexNumber(self.real, self.imaginary)
+            for i in range(power - 1):
+                result *= self
+            return result
+
         def __str__(self):
             if self.imaginary == 0:
                 return f"{self.real}"
@@ -255,7 +263,7 @@ class Math:
         def __rmul__(self, other: int) -> 'Math.Matrix':
             # int * matrix fix
             return self.__mul__(other)
-        
+
         def __str__(self):
             # Spaghetti code goes hard <3
 
@@ -263,7 +271,7 @@ class Math:
             for i in range(0, self.height):
                 __temp.append([])
 
-            # Iterate through the collumns
+            # Iterate through the columns
             for i in range(0, self.width):
 
                 # Get longest number in characters used (- included etc.) per column
@@ -336,7 +344,7 @@ class Math:
             for i in range(power):
                 result *= self
             return result
-        
+
         def transpose(self) -> 'Math.Matrix':
             result = []
             for i in range(self.width):
@@ -344,7 +352,7 @@ class Math:
                 for j in range(self.height):
                     result[i].append(self.matrix[j][i])
             return Math.Matrix(result)
-        
+
         def diagonal(self) -> list:
             if self.width != self.height:
                 raise ValueError("Matrix is not a square matrix")
@@ -353,7 +361,7 @@ class Math:
             for i in range(self.width):
                 result.append(self.matrix[i][i])
             return result
-        
+
         def secondary_diagonal(self) -> list:
             if self.width != self.height:
                 raise ValueError("Matrix is not a square matrix")
@@ -362,7 +370,7 @@ class Math:
             for i in range(self.width):
                 result.append(self.matrix[i][self.width - i - 1])
             return result
-        
+
         def inferior_triangular_matrix(self, offset=0):
             if self.width != self.height:
                 raise ValueError("Matrix is not a square matrix")
@@ -375,12 +383,12 @@ class Math:
                 for j in range(self.height):
                     line.append(0)
                 result.append(line)
-            
+
             for i in range(offset, self.height):
                 for j in range(i + 1 - offset):
                     result[i][j] = self.matrix[i][j]
             return Math.Matrix(result)
-        
+
         def superior_triangular_matrix(self, offset=0):
             if self.width != self.height:
                 raise ValueError("Matrix is not a square matrix")
@@ -393,12 +401,11 @@ class Math:
                 for j in range(self.height):
                     line.append(0)
                 result.append(line)
-            
+
             for i in range(self.height):
                 for j in range(i + offset, self.width):
                     result[i][j] = self.matrix[i][j]
             return Math.Matrix(result)
-                    
 
         @staticmethod
         def unit_matrix(size: int) -> 'Math.Matrix':
@@ -445,7 +452,7 @@ class Math:
                 for j in range(matrix.height):
                     result[i].append(matrix.matrix[j][i])
             return Math.Matrix(result)
-        
+
         @staticmethod
         def inferior_triangular_matrix_of(matrix: Union[list, 'Math.Matrix'], offset=0) -> 'Math.Matrix':
             if not isinstance(matrix, Math.Matrix):
@@ -462,12 +469,12 @@ class Math:
                 for j in range(matrix.height):
                     line.append(0)
                 result.append(line)
-            
+
             for i in range(offset, matrix.height):
                 for j in range(i + 1 - offset):
                     result[i][j] = matrix.matrix[i][j]
             return Math.Matrix(result)
-        
+
         @staticmethod
         def superior_triangular_matrix_of(matrix: Union[list, 'Math.Matrix'], offset=0) -> 'Math.Matrix':
             if not isinstance(matrix, Math.Matrix):
@@ -484,7 +491,7 @@ class Math:
                 for j in range(matrix.height):
                     line.append(0)
                 result.append(line)
-            
+
             for i in range(matrix.height):
                 for j in range(i + offset, matrix.width):
                     result[i][j] = matrix.matrix[i][j]
@@ -496,5 +503,6 @@ class Math:
             for i in range(height):
                 matrix.append([])
                 for j in range(width):
-                    matrix[i].append(int(input(f"Enter the value for [{i}][{j}]: ")))
+                    matrix[i].append(
+                        int(input(f"Enter the value for [{i}][{j}]: ")))
             return Math.Matrix(matrix)
