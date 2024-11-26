@@ -57,7 +57,7 @@ def increment_version():
     elif choice == '4':
         new_version = cached_version + label
         cloned_lines[2] = f'__version__ = "{new_version}"\n'
-    
+
     elif choice == '5':
         new_version = input('Version: ')
         cloned_lines[2] = f'__version__ = "{new_version}"\n'
