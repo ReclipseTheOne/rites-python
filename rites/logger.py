@@ -1,5 +1,21 @@
 from datetime import datetime
-from colored import Fore, Style
+from rituals import Misc
+from enum import Enum
+import atexit
+import sys
+import traceback
+
+# TODO: Implement Log Levels
+class LogLevels(Enum):
+    """ LogLevels Enum
+
+        Enum for log levels
+    """
+    INFO = 1
+    DEBUG = 2
+    WARNING = 3
+    ERROR = 4
+    SUCCESS = 5
 
 
 class Logger:
@@ -14,12 +30,9 @@ class Logger:
     def __init__(self, log_path, log_format="log-%Y-%m-%d-%Hh-%Mm-%Ss"):
         self.log_path = log_path
         self.log_format = log_format
-        self.__c_red = Fore.red
-        self.__c_blue = Fore.blue
-        self.__c_green = Fore.green
-        self.__c_white = Fore.white
-        self.__c_yellow = Fore.yellow
-        self.__c_rst = Style.reset
+        self.logger_creation_time = self._getLogDateTime()
+
+        atexit.register(self._exit_handler)
 
     def _getLogDateTime(self):
         now = datetime.now()
@@ -27,11 +40,19 @@ class Logger:
 
     def _writeToLogFile(self, txt):
         try:
-            with open(f"{self.log_path}/{self._getLogDateTime()}", "a+") as log_file:
+            with open(f"{self.log_path}/{self.logger_creation_time}", "a+") as log_file:
                 log_file.write(txt)
                 log_file.close()
         except FileNotFoundError:
-            open(f"{self.log_path}/{self._getLogDateTime()}", "w").write(txt)
+            open(f"{self.log_path}/{self.logger_creation_time}", "w").write(txt)
+
+    def _exit_handler(self):
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        if exc_type is None:
+            self.success("Program exited successfully.")
+        else:
+            self.error("Program exited with an error.")
+            self.error("".join(traceback.format_exception(exc_type, exc_value, exc_traceback)))
 
     def warning(self, *txt):
         """ Logs a warning message
@@ -42,7 +63,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_yellow}warning{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.warning}warning{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
         self._writeToLogFile(f"[warning] {string}\n")
 
     def error(self, *txt):
@@ -54,7 +75,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_red}error{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.error}error{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
         self._writeToLogFile(f"[error] {string}\n")
 
     def debug(self, *txt):
@@ -66,7 +87,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_blue}debug{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.debug}debug{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
         self._writeToLogFile(f"[debug] {string}\n")
 
     def success(self, *txt):
@@ -78,5 +99,18 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{self.__c_white}[{self.__c_rst}{self.__c_green}success{self.__c_rst}{self.__c_white}]{self.__c_rst} " + string)
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.success}success{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
         self._writeToLogFile(f"[success] {string}\n")
+
+    def info(self, *txt):
+        """ Logs a success message
+
+            Args:
+                txt (str): The message to log
+        """
+        string = ""
+        for substr in txt:
+            string += str(substr) + " "
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.info}info{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        self._writeToLogFile(f"[info] {string}\n")
+

@@ -1,5 +1,8 @@
 import math
 from typing import Union
+from colored import Fore, Style
+from pathlib import Path
+from enum import Enum
 
 
 class Math:
@@ -345,6 +348,27 @@ class Math:
                 result *= self
             return result
 
+        def __len__(self) -> int:
+            return self.width * self.height
+
+        def __getitem__(self, key: int) -> list:
+            return self.matrix[key]
+
+        def __setitem__(self, key: int, value: list) -> None:
+            self.matrix[key] = value
+
+        def __iter__(self):
+            return iter(self.matrix)
+
+        def __eq__(self, other: 'Math.Matrix') -> bool:
+            return self.matrix == other.matrix
+
+        def __ne__(self, other: 'Math.Matrix') -> bool:
+            return self.matrix != other.matrix
+
+        def __hash__(self):
+            return hash(self.matrix)
+        
         def transpose(self) -> 'Math.Matrix':
             result = []
             for i in range(self.width):
@@ -406,7 +430,22 @@ class Math:
                 for j in range(i + offset, self.width):
                     result[i][j] = self.matrix[i][j]
             return Math.Matrix(result)
+        
+        def elements(self) -> list:
+            elements = []
+            for row in self.matrix:
+                for element in row:
+                    elements.append(element)
+            return elements
 
+        @staticmethod
+        def elements_of(matrix: 'Math.Matrix') -> list:
+            elements = []
+            for row in matrix.matrix:
+                for element in row:
+                    elements.append(element)
+            return elements
+        
         @staticmethod
         def unit_matrix(size: int) -> 'Math.Matrix':
             matrix = []
@@ -506,3 +545,117 @@ class Math:
                     matrix[i].append(
                         int(input(f"Enter the value for [{i}][{j}]: ")))
             return Math.Matrix(matrix)
+
+class Misc:
+    """Your everyday random useful functions
+    """
+
+    class ConsoleColors:
+        debug = Fore.RGB(0, 0, 255)
+        success = Fore.RGB(20, 255, 20)
+        error = Fore.RGB(255, 0, 0)
+        warning = Fore.RGB(255, 255, 0)
+        info = Fore.RGB(255, 60, 255)
+        white = Fore.white
+        rst = Style.reset
+
+    def print_warning(*txt):
+        """ Prints a warning message
+
+            Args:
+                txt (str): The message to log
+        """
+        string = ""
+        for substr in txt:
+            string += str(substr) + " "
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.yellow}warning{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+
+
+    def print_error(*txt):
+        """ Prints an error message
+
+            Args:
+                txt (str): The message to log
+        """
+        string = ""
+        for substr in txt:
+            string += str(substr) + " "
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.red}error{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+
+
+    def print_debug(*txt):
+        """ Prints a debug message
+
+            Args:
+                txt (str): The message to log
+        """
+        string = ""
+        for substr in txt:
+            string += str(substr) + " "
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.purple}debug{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+
+    def print_info(*txt):
+        """ Prints an info message
+
+            Args:
+                txt (str): The message to log
+        """
+        string = ""
+        for substr in txt:
+            string += str(substr) + " "
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.info}info{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+
+
+    def print_success(*txt):
+        """ Prints a success message
+
+            Args:
+                txt (str): The message to log
+        """
+        string = ""
+        for substr in txt:
+            string += str(substr) + " "
+        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.success}success{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+
+
+    def get_file_count(directory: str) -> int:
+        """ Returns the number of files in a directory
+
+            Args:
+                directory (str): Absolute path to the directory
+        """
+        dir_path = Path(directory)
+        file_count = len([file for file in dir_path.iterdir() if file.is_file()])
+
+        return file_count
+
+
+    def get_file_paths(directory: str) -> list:
+        """ Returns a list of absolute paths to all the files in a directory
+
+            Args:
+                directory (str): Absolute path to the directory
+        """
+        paths = []
+
+        dir_path = Path(directory)
+        for file in dir_path.iterdir():
+            if file.is_file():
+                paths.append(str(file.absolute().resolve()))
+
+        return paths
+
+
+    def enforce(obj, cls, debug=True):
+        """ Enforces a type on an object
+
+            Args:
+                obj (object): The object to enforce the type on
+                cls (type): The type to enforce
+                debug (bool): Whether to print debug messages (default True)
+        """
+        if not isinstance(obj, cls):
+            if debug:
+                print_error(f"Blocked: {obj}")
+                print_error(f"Expected type: {white}<{rst}{red}{cls.__name__}{rst}{white}>{rst} but got {white}<{rst}{red}{type(obj).__name__}{rst}{white}>{rst}")
+            raise TypeError(f"Expected type: <{cls.__name__}> but got <{type(obj).__name__}>")

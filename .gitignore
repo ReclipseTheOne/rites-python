@@ -3,5 +3,6 @@
 dist
 build
 rites/test.py
+rites/testfolder
 rites/__pycache__
 rites.egg-info
