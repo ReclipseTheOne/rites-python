@@ -1,8 +1,13 @@
+import os
+from dotenv import load_dotenv
 from setuptools import setup, find_packages
+
+load_dotenv()
+pkgVersion = os.getenv('RITES_PKG_VERSION')
 
 setup(
     name="rites",
-    version="0.2.3",
+    version=pkgVersion,
     description="Reclipse's Initial Try at Enhanced Simplicity or R.I.T.E.S. A simple and lightweight QoL module.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
