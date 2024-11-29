@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from setuptools import setup, find_packages
 
 load_dotenv()
 pypi_token = os.getenv('PYPI_TOKEN')
