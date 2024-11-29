@@ -68,6 +68,16 @@ Accept changes? (y/n)
         with open("./rites/_version.py", "w") as f:
             f.writelines(cloned_lines)
             f.close()
+
+        clean_dist = input(f"Cleaning dist folder to not upload redundant versions.\nPress 'y' to accept\n>")
+        if (clean_dist == 'y'):
+            if os.name == 'nt':
+                os.system('rmdir /S /Q dist')
+                os.system('mkdir dist')
+            else:
+                os.system('rm -rf dist')
+                os.system('mkdir dist')
+
         build_package(new_version)
         os.system(f'twine upload dist/* -u __token__ -p {pypi_token}')
     else:
