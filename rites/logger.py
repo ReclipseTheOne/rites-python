@@ -1,5 +1,6 @@
+from .rituals import Misc
+
 from datetime import datetime
-from rituals import Misc
 from enum import Enum
 import atexit
 import sys

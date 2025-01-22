@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 
 p = rites.rituals.Misc
 
-load_dotenv()
+
+load_dotenv(".env")
 pypi_token = os.getenv('PYPI_TOKEN')
 
 cached_lines = []

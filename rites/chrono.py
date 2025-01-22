@@ -1,9 +1,10 @@
+import rites.logger
+import rites.rituals
+
 import time
 import math
-import logger
-import rituals
 
-misc = rituals.Misc
+misc = rites.rituals.Misc
 
 class Chrono:
     """ Chrono Class
@@ -17,7 +18,7 @@ class Chrono:
         Args - AS OF 0.1.3:
             logger (logger.Logger): Your logger object - default (None)
     """
-    def __init__(self, logger: logger.Logger = None):
+    def __init__(self, logger: rites.logger.Logger = None):
         self.__init_time = time.time_ns()
         self.__stopwatch_tabs = []
         self.logger = logger
