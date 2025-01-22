@@ -25,20 +25,20 @@ class Logger:
 
         Args:
             log_path (str): The path to the log file directory
-            log_format (str): The format of the log file name - default (log-%Y-%m-%d-%Hh-%Mm-%Ss)
+            log_filename_format (str): The format of the log file name - default (log-%Y-%m-%d-%Hh-%Mm-%Ss)
             log_inline_format (str): The format for the time stamp on the log lines - default ([%Y-%m-%d %H:%M:%S])
     """
-    def __init__(self, log_path, log_format="log-%Y-%m-%d-%Hh-%Mm-%Ss", log_inline_format="[%Y-%m-%d %H:%M:%S]"):
+    def __init__(self, log_path, log_filename_format="log-%Y-%m-%d-%Hh-%Mm-%Ss", log_inline_format="[%Y-%m-%d %H:%M:%S]"):
         self.log_path = log_path
-        self.log_format = log_format
+        self.log_filename_format = log_filename_format
         self.log_inline_format = log_inline_format
-        self.logger_creation_time = self._getFormattedTimeStamp()
+        self.logger_creation_time = self._getFilenameFormattedTimeStamp()
 
         atexit.register(self._exit_handler)
 
-    def _getFormattedTimeStamp(self):
+    def _getFilenameFormattedTimeStamp(self):
         now = datetime.now()
-        return now.strftime(self.log_format)
+        return now.strftime(self.log_filename_format)
 
     def _getInlineFormattedTimeStamp(self):
         now = datetime.now()
@@ -60,6 +60,14 @@ class Logger:
             self.error("Program exited with an error.")
             self.error("".join(traceback.format_exception(exc_type, exc_value, exc_traceback)))
 
+    def printableTimeStamp(self) -> str:
+        """ Returns a colored console printable timestamp
+
+            Returns:
+                str: The formatted timestamp
+        """
+        return f"{Misc.ConsoleColors.gray}{self._getInlineFormattedTimeStamp()}{Misc.ConsoleColors.rst}"
+
     def warning(self, *txt):
         """ Logs a warning message
 
@@ -69,7 +77,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.warning}warning{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{self.printableTimeStamp()} {Misc.warning_str} " + string)
         self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [warning] {string}\n")
 
     def error(self, *txt):
@@ -81,7 +89,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.error}error{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{self.printableTimeStamp()} {Misc.error_str} " + string)
         self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [error] {string}\n")
 
     def debug(self, *txt):
@@ -93,7 +101,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.debug}debug{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{self.printableTimeStamp()} {Misc.debug_str} " + string)
         self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [debug] {string}\n")
 
     def success(self, *txt):
@@ -105,7 +113,7 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.success}success{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{self.printableTimeStamp()} {Misc.success_str} " + string)
         self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [success] {string}\n")
 
     def info(self, *txt):
@@ -117,6 +125,6 @@ class Logger:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.info}info{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{self.printableTimeStamp()} {Misc.info_str} " + string)
         self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [info] {string}\n")
 

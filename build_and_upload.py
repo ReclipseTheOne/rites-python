@@ -1,5 +1,8 @@
 import os
+import rites.rituals
 from dotenv import load_dotenv
+
+p = rites.rituals.Misc
 
 load_dotenv()
 pypi_token = os.getenv('PYPI_TOKEN')
@@ -16,7 +19,7 @@ def increment_version():
     cached_version = cloned_lines[2].split('=')[1].strip().replace('\"', '')
     new_version = ''
 
-    print(f"Current version: {cached_version}")
+    print(f"Env version: {os.getenv('RITES_PKG_VERSION')} - Cached version: {cached_version}")
     choice = input(f'''
     1. Increment patch version
     2. Increment minor version and set patch to 0
@@ -94,6 +97,9 @@ def build_package(pkgVersion):
         f.writelines(env_lines)
         f.close()
 
+    load_dotenv(".env")
+
+    p.print_info(f"Running setup.py for version {pkgVersion}")
     os.system('python setup.py sdist bdist_wheel')
 
 
