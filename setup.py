@@ -1,9 +1,13 @@
 import os
+import rites.rituals
 from dotenv import load_dotenv
 from setuptools import setup, find_packages
 
-load_dotenv()
+p = rites.rituals.Misc
+
+load_dotenv(".env")
 pkgVersion = os.getenv('RITES_PKG_VERSION')
+p.print_info(f"Building package with version {pkgVersion}")
 
 setup(
     name="rites",

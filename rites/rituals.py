@@ -557,7 +557,14 @@ class Misc:
         warning = Fore.RGB(255, 255, 0)
         info = Fore.RGB(255, 60, 255)
         white = Fore.white
+        gray = Fore.RGB(100, 100, 100)
         rst = Style.reset
+
+    warning_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.warning}warning{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    error_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.error}error{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    debug_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.debug}debug{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    info_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.info}info{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    success_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.success}success{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
 
     def print_warning(*txt):
         """ Prints a warning message
@@ -568,7 +575,7 @@ class Misc:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.yellow}warning{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{Misc.warning_str} " + string)
 
 
     def print_error(*txt):
@@ -580,7 +587,7 @@ class Misc:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.red}error{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{Misc.error_str} " + string)
 
 
     def print_debug(*txt):
@@ -592,7 +599,7 @@ class Misc:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.purple}debug{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{Misc.debug_str} " + string)
 
     def print_info(*txt):
         """ Prints an info message
@@ -603,7 +610,7 @@ class Misc:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.info}info{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{Misc.info_str} " + string)
 
 
     def print_success(*txt):
@@ -615,7 +622,7 @@ class Misc:
         string = ""
         for substr in txt:
             string += str(substr) + " "
-        print(f"{Misc.ConsoleColors.white}[{Misc.ConsoleColors.rst}{Misc.ConsoleColors.success}success{Misc.ConsoleColors.rst}{Misc.ConsoleColors.white}]{Misc.ConsoleColors.rst} " + string)
+        print(f"{Misc.success_str} " + string)
 
 
     def get_file_count(directory: str) -> int:
