@@ -79,7 +79,7 @@ class Logger:
         for substr in txt:
             string += str(substr) + " "
         print(f"{self.printableTimeStamp()} {Misc.warning_str} " + string)
-        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [warning] {string}\n")
+        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [WRN] {string}\n")
 
     def error(self, *txt):
         """ Logs an error message
@@ -91,7 +91,7 @@ class Logger:
         for substr in txt:
             string += str(substr) + " "
         print(f"{self.printableTimeStamp()} {Misc.error_str} " + string)
-        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [error] {string}\n")
+        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [ERR] {string}\n")
 
     def debug(self, *txt):
         """ Logs a debug message
@@ -103,7 +103,7 @@ class Logger:
         for substr in txt:
             string += str(substr) + " "
         print(f"{self.printableTimeStamp()} {Misc.debug_str} " + string)
-        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [debug] {string}\n")
+        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [DBG] {string}\n")
 
     def success(self, *txt):
         """ Logs a success message
@@ -115,7 +115,7 @@ class Logger:
         for substr in txt:
             string += str(substr) + " "
         print(f"{self.printableTimeStamp()} {Misc.success_str} " + string)
-        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [success] {string}\n")
+        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [SCS] {string}\n")
 
     def info(self, *txt):
         """ Logs a success message
@@ -127,5 +127,5 @@ class Logger:
         for substr in txt:
             string += str(substr) + " "
         print(f"{self.printableTimeStamp()} {Misc.info_str} " + string)
-        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [info] {string}\n")
+        self._writeToLogFile(f"{self._getInlineFormattedTimeStamp()} [INF] {string}\n")
 
