@@ -551,20 +551,20 @@ class Misc:
     """
 
     class ConsoleColors:
-        debug = Fore.RGB(0, 0, 255)
+        debug = Fore.RGB(128, 128, 128)
         success = Fore.RGB(20, 255, 20)
         error = Fore.RGB(255, 0, 0)
         warning = Fore.RGB(255, 255, 0)
-        info = Fore.RGB(255, 60, 255)
+        info = Fore.RGB(0, 240, 255)
         white = Fore.white
         gray = Fore.RGB(100, 100, 100)
         rst = Style.reset
 
-    warning_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.warning}warning{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    error_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.error}error{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    debug_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.debug}debug{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    info_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.info}info{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    success_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.success}success{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    warning_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.warning}WRN{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    error_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.error}ERR{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    debug_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.debug}DBG{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    info_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.info}INF{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
+    success_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.success}SCS{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
 
     def print_warning(*txt):
         """ Prints a warning message
