@@ -1,9 +1,10 @@
 import os
-import rites.rituals
+
+from rites.rituals.printer import Printer
 from dotenv import load_dotenv
 from setuptools import setup, find_packages
 
-p = rites.rituals.Misc
+p = Printer()
 
 load_dotenv(".env")
 pkgVersion = os.getenv('RITES_PKG_VERSION')
