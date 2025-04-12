@@ -4,6 +4,7 @@ import os
 
 from ._version import __version__
 
+
 def version():
     """Version number for rites.
 
@@ -11,6 +12,7 @@ def version():
       str: package version number
     """
     return __version__
+
 
 def about():
     """Prints the installed version numbers for rites and its dependencies,

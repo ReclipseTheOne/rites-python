@@ -1,8 +1,8 @@
 import os
-import rites.rituals
+from rites.rituals.printer import Printer
 from dotenv import load_dotenv
 
-p = rites.rituals.Misc
+p = Printer()
 
 
 load_dotenv(".env")

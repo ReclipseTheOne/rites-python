@@ -5,5 +5,8 @@ dist
 build
 rites/test.py
 rites/testfolder
-rites/__pycache__
 rites.egg-info
+
+# No caching in this part of town
+rites/__pycache__
+rites/rituals/__pycache__

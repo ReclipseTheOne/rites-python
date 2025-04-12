@@ -1,8 +1,5 @@
-import math
 from typing import Union
-from colored import Fore, Style
-from pathlib import Path
-from enum import Enum
+import math
 
 
 class Math:
@@ -368,7 +365,7 @@ class Math:
 
         def __hash__(self):
             return hash(self.matrix)
-        
+
         def transpose(self) -> 'Math.Matrix':
             result = []
             for i in range(self.width):
@@ -430,7 +427,7 @@ class Math:
                 for j in range(i + offset, self.width):
                     result[i][j] = self.matrix[i][j]
             return Math.Matrix(result)
-        
+
         def elements(self) -> list:
             elements = []
             for row in self.matrix:
@@ -445,7 +442,7 @@ class Math:
                 for element in row:
                     elements.append(element)
             return elements
-        
+
         @staticmethod
         def unit_matrix(size: int) -> 'Math.Matrix':
             matrix = []
@@ -545,124 +542,3 @@ class Math:
                     matrix[i].append(
                         int(input(f"Enter the value for [{i}][{j}]: ")))
             return Math.Matrix(matrix)
-
-class Misc:
-    """Your everyday random useful functions
-    """
-
-    class ConsoleColors:
-        debug = Fore.RGB(128, 128, 128)
-        success = Fore.RGB(20, 255, 20)
-        error = Fore.RGB(255, 0, 0)
-        warning = Fore.RGB(255, 255, 0)
-        info = Fore.RGB(0, 240, 255)
-        white = Fore.white
-        gray = Fore.RGB(100, 100, 100)
-        rst = Style.reset
-
-    warning_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.warning}WRN{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    error_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.error}ERR{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    debug_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.debug}DBG{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    info_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.info}INF{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-    success_str = f"{ConsoleColors.white}[{ConsoleColors.rst}{ConsoleColors.success}SCS{ConsoleColors.rst}{ConsoleColors.white}]{ConsoleColors.rst}"
-
-    def print_warning(*txt):
-        """ Prints a warning message
-
-            Args:
-                txt (str): The message to log
-        """
-        string = ""
-        for substr in txt:
-            string += str(substr) + " "
-        print(f"{Misc.warning_str} " + string)
-
-
-    def print_error(*txt):
-        """ Prints an error message
-
-            Args:
-                txt (str): The message to log
-        """
-        string = ""
-        for substr in txt:
-            string += str(substr) + " "
-        print(f"{Misc.error_str} " + string)
-
-
-    def print_debug(*txt):
-        """ Prints a debug message
-
-            Args:
-                txt (str): The message to log
-        """
-        string = ""
-        for substr in txt:
-            string += str(substr) + " "
-        print(f"{Misc.debug_str} " + string)
-
-    def print_info(*txt):
-        """ Prints an info message
-
-            Args:
-                txt (str): The message to log
-        """
-        string = ""
-        for substr in txt:
-            string += str(substr) + " "
-        print(f"{Misc.info_str} " + string)
-
-
-    def print_success(*txt):
-        """ Prints a success message
-
-            Args:
-                txt (str): The message to log
-        """
-        string = ""
-        for substr in txt:
-            string += str(substr) + " "
-        print(f"{Misc.success_str} " + string)
-
-
-    def get_file_count(directory: str) -> int:
-        """ Returns the number of files in a directory
-
-            Args:
-                directory (str): Absolute path to the directory
-        """
-        dir_path = Path(directory)
-        file_count = len([file for file in dir_path.iterdir() if file.is_file()])
-
-        return file_count
-
-
-    def get_file_paths(directory: str) -> list:
-        """ Returns a list of absolute paths to all the files in a directory
-
-            Args:
-                directory (str): Absolute path to the directory
-        """
-        paths = []
-
-        dir_path = Path(directory)
-        for file in dir_path.iterdir():
-            if file.is_file():
-                paths.append(str(file.absolute().resolve()))
-
-        return paths
-
-
-    def enforce(obj, cls, debug=True):
-        """ Enforces a type on an object
-
-            Args:
-                obj (object): The object to enforce the type on
-                cls (type): The type to enforce
-                debug (bool): Whether to print debug messages (default True)
-        """
-        if not isinstance(obj, cls):
-            if debug:
-                print_error(f"Blocked: {obj}")
-                print_error(f"Expected type: {white}<{rst}{red}{cls.__name__}{rst}{white}>{rst} but got {white}<{rst}{red}{type(obj).__name__}{rst}{white}>{rst}")
-            raise TypeError(f"Expected type: <{cls.__name__}> but got <{type(obj).__name__}>")
