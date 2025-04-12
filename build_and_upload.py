@@ -1,8 +1,5 @@
 import os
-from rites.rituals.printer import Printer
 from dotenv import load_dotenv
-
-p = Printer()
 
 
 load_dotenv(".env")
@@ -100,8 +97,8 @@ def build_package(pkgVersion):
 
     load_dotenv(".env")
 
-    p.print_info(f"Running setup.py for version {pkgVersion}")
-    os.system('python setup.py sdist bdist_wheel')
+    print(f"Running setup.py for version {pkgVersion}")
+    os.system(f"python setup.py --version={pkgVersion} sdist bdist_wheel")
 
 
 increment_version()

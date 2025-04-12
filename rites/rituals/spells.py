@@ -1,5 +1,6 @@
+from .printer import Printer
+
 from pathlib import Path
-from printer import Printer
 from colored import Fore, Style
 
 

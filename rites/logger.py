@@ -1,4 +1,4 @@
-from rituals.printer import Printer
+from .rituals.printer import Printer
 
 from datetime import datetime
 from enum import Enum

@@ -1,5 +1,5 @@
-from logger import Logger
-from rituals.printer import Printer
+from .logger import Logger
+from .rituals.printer import Printer
 
 import time
 import math
