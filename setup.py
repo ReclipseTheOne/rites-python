@@ -1,14 +1,24 @@
-import os
-
-from rites.rituals.printer import Printer
-from dotenv import load_dotenv
+import sys
 from setuptools import setup, find_packages
 
-p = Printer()
+pkgVersion = "INVALID_VERSION"
 
-load_dotenv(".env")
-pkgVersion = os.getenv('RITES_PKG_VERSION')
-p.print_info(f"Building package with version {pkgVersion}")
+# Default version from file
+with open("rites/_version.py", "r") as f:
+    for line in f:
+        if line.startswith("__version__"):
+            pkgVersion = line.split("=")[1].strip().replace('"', '').replace("'", '')
+            break
+
+# Check for version argument
+for arg in sys.argv:
+    if arg.startswith('--version='):
+        pkgVersion = arg.split('=')[1]
+        # Remove this argument so setuptools doesn't see it
+        sys.argv.remove(arg)
+        break
+
+print(f"Building package with version {pkgVersion}")
 
 setup(
     name="rites",
