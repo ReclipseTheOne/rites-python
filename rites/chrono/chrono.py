@@ -1,5 +1,5 @@
-from .logger import Logger
-from .rituals.printer import Printer
+from ..logger import Logger
+from ..rituals.printer import Printer
 
 import time
 import math
@@ -28,7 +28,7 @@ class Chrono:
         if print and self.logger:
             self.logger.debug(f"Time since last stopwatch: {math.floor((time.time_ns() - self.__init_time) / 1000000) / 1000}s")
         elif print and not self.logger:
-            self.__p.print_debug(f"Time since last stopwatch: {math.floor((time.time_ns() - self.__init_time) / 1000000) / 1000}s")
+            self.__printer.print_debug(f"Time since last stopwatch: {math.floor((time.time_ns() - self.__init_time) / 1000000) / 1000}s")
         self.__init_time = time.time_ns()
         self.__stopwatch_tabs.append(str(time.time_ns()))
 
@@ -116,7 +116,7 @@ class Chrono:
         """ Get timing statistics for a specific function or all functions
 
         Args:
-            func_name (str, optional): The function name to get timings for. 
+            func_name (str, optional): The function name to get timings for.
                                       If None, returns all timings. Defaults to None.
 
         Returns:
@@ -151,7 +151,7 @@ class Chrono:
         """ Reset timing statistics for a specific function or all functions
 
         Args:
-            func_name (str, optional): The function name to reset timings for. 
+            func_name (str, optional): The function name to reset timings for.
                                       If None, resets all timings. Defaults to None.
         """
         if func_name:

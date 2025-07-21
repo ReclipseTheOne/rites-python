@@ -8,6 +8,5 @@ rites/testfolder
 rites.egg-info
 
 # No caching in this part of town
-rites/__pycache__
-rites/rituals/__pycache__
+__pycache__
 test.py

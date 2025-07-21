@@ -4,6 +4,14 @@ import os
 
 from ._version import __version__
 
+# Import from the new module structure
+from . import bitchain
+from . import chrono
+from . import logger
+from . import rituals
+
+__all__ = ['version', 'about', 'bitchain', 'chrono', 'logger', 'rituals']
+
 
 def version():
     """Version number for rites.

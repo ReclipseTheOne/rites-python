@@ -1,4 +1,4 @@
-from .rituals.printer import Printer
+from ..rituals.printer import Printer
 
 from datetime import datetime
 from enum import Enum
@@ -9,19 +9,6 @@ import sys
 import traceback
 import os
 import zipfile
-
-
-# TODO: Implement Log Levels
-class LogLevels(Enum):
-    """ LogLevels Enum
-
-        Enum for log levels
-    """
-    INFO = 1
-    DEBUG = 2
-    WARNING = 3
-    ERROR = 4
-    SUCCESS = 4
 
 
 class Logger:
@@ -91,7 +78,7 @@ class Logger:
                 with zipfile.ZipFile(f"{self.log_path}/log_0.rar", 'w', zipfile.ZIP_DEFLATED) as log_archive:
                     log_archive.write(latest_log, arcname="latest.log")
                 os.remove(latest_log)
-        
+
     def printable_timestamp(self) -> str:
         """ Returns a colored console printable timestamp
 

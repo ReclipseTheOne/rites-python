@@ -1,6 +1,13 @@
-# Make this a module :>
+"""Rituals module for rites package.
 
-# Utility classes found under rituals:
-# -> Math - with it's Complex Number, Matrix and Sqrt functions
-# -> Printer - pretty printing (with logging functionality under rites.logger)
-# -> Spells - random functionz
+This module contains utility classes and functions:
+- Math: Complex Number, Matrix, and Sqrt functions
+- Printer: Pretty printing with logging functionality
+- Spells: Random utility functions
+"""
+
+from .math import Math
+from .printer import Printer
+from .spells import Spells
+
+__all__ = ['Math', 'Printer', 'Spells']
