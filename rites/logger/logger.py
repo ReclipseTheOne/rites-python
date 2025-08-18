@@ -52,7 +52,7 @@ class Logger:
     def _exit_handler(self):
         exc_type, exc_value, exc_traceback = sys.exc_info()
 
-        if self.handles_exit_message is not True:
+        if self.handles_exit_message is True:
             if exc_type is None:
                 self.success("Program exited successfully.")
             else:
