@@ -198,4 +198,4 @@ def get_sec_logger(log_path, log_name="Unnamed Secondary Logger", log_level=2, l
 
 def get_tertiary_logger(log_name="Unnamed Tertiary Logger", log_level=2, log_console_format="%Y-%m-%d %H:%M:%S"):
     """Returns a Logger instance without logging to file"""
-    return Logger("", log_name=log_name, log_level=log_level, log_console_format=log_console_format, handles_zipping=False, handles_exit_message=True)
+    return Logger("", log_name=log_name, log_level=log_level, log_console_format=log_console_format, handles_zipping=False, handles_exit_message=True).should_log(False)
